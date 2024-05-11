@@ -1,6 +1,6 @@
 # **E-Challan - Traffic Incident Management System** 🚗🚓
 
-![Header](/assets/Header.png)
+![Header](/assets/header.png)
 
 This Traffic Incident Management System is designed to effectively manage information related to traffic incidents, vehicles, owners, traffic tickets, traffic officers, payments, ticket histories, and violations. It provides a comprehensive solution for tracking traffic incidents from occurrence to resolution. 🛣️🚨
 
