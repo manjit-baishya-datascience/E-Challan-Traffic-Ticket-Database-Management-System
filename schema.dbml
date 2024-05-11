@@ -1,0 +1,77 @@
+Table Vehicles {
+  VehicleID int [pk]
+  OwnerID int [ref: > Owners.OwnerID]
+  PlateNumber text [not null]
+  Make text [not null]
+  Model text [not null]
+  Year int [not null]
+  Color text
+}
+
+Table Owners {
+  OwnerID int [pk]
+  FirstName text [not null]
+  LastName text [not null]
+  LicenseNumber text [unique, not null]
+  LicenseType text [not null]
+  LicenseExpiryDate date [not null]
+  Address text
+  City text
+  State text
+  Country text
+  PhoneNumber text
+}
+
+Table TrafficIncidents {
+  IncidentID int [pk]
+  IncidentDateTime datetime [not null]
+  Location text [not null]
+  Description text
+  VehicleID int [not null, ref: > Vehicles.VehicleID]
+  OwnerID int [not null, ref: > Owners.OwnerID]
+}
+
+Table TrafficTickets {
+  TicketID int [pk]
+  IncidentID int [not null, ref: > TrafficIncidents.IncidentID]
+  ViolationID text [not null, ref: > Violations.ViolationID]
+  Description text
+  Fine decimal(10, 2) [not null]
+  IssuingOfficerID int [not null, ref: > TrafficOfficers.OfficerID]
+  IssueDateTime datetime [not null]
+  PaymentStatus text [default: 'Unpaid', check: "PaymentStatus IN ('Paid', 'Unpaid')"]
+}
+
+Table TrafficOfficers {
+  OfficerID int [pk]
+  FirstName text [not null]
+  LastName text [not null]
+  BadgeNumber text [unique, not null]
+  Rank text [not null]
+  PhoneNumber text
+  Email text [unique, not null]
+}
+
+Table Payments {
+  PaymentID int [pk]
+  TicketID int [not null, ref: > TrafficTickets.TicketID]
+  PaymentDateTime datetime [not null]
+  Amount decimal(10, 2) [not null]
+  PaymentMethod text [not null]
+}
+
+Table TicketHistories {
+  HistoryID int [pk]
+  TicketID int [not null, ref: > TrafficTickets.TicketID]
+  ModificationDateTime datetime [not null]
+  ModifiedBy text [not null]
+  ModificationType text [not null]
+  OldValue text
+  NewValue text
+}
+
+Table Violations {
+  ViolationID int [pk]
+  Name text [not null]
+  Description text
+}
